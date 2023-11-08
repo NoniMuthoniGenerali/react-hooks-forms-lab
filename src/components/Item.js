@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+import { v4 as uuid } from "uuid";
 
-function Item({ name, category }) {
-  const [isInCart, setIsInCart] = useState(false);
-
-  function handleAddToCartClick() {
-    setIsInCart((isInCart) => !isInCart);
-  }
-
+function ItemForm(props) {
+  const newItem = {
+    id: uuid(), // the `uuid` library can be used to generate a unique id
+    name: itemName,
+    category: itemCategory,
+  };
   return (
-    <li className={isInCart ? "in-cart" : ""}>
-      <span>{name}</span>
-      <span className="category">{category}</span>
-      <button
-        className={isInCart ? "remove" : "add"}
-        onClick={handleAddToCartClick}
-      >
-        {isInCart ? "Remove From" : "Add to"} Cart
-      </button>
-    </li>
+    <form className="NewItem">
+      <label>
+        Name:
+        <input type="text" name="name" />
+      </label>
+
+      <label>
+        Category:
+        <select name="category">
+          <option value="Produce">Produce</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Dessert">Dessert</option>
+        </select>
+      </label>
+
+      <button type="submit">Add to List</button>
+    </form>
   );
 }
 
-export default Item;
+export default ItemForm;
